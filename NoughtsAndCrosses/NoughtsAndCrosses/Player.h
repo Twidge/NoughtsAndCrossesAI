@@ -34,6 +34,7 @@ public :
 	// METHODS
 
 	void MakeMove(Board&) const;
+	WinType RecursiveCheck(const int, const int, const Square, const Board&, const int) const;
 
 	// OPERATOR OVERLOADS
 

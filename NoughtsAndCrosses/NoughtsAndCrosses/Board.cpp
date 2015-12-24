@@ -1,5 +1,18 @@
 #include "Board.h"
 
+Square OppositeSymbol(Square s)
+{
+	if (s == Nought)
+	{
+		return Cross;
+	}
+
+	else
+	{
+		return Nought;
+	}
+}
+
 // CONSTRUCTORS
 
 Board::Board()
@@ -35,6 +48,12 @@ Square Board::GetSquare(const int x, const int y) const
 
 void Board::SetSquare(const int x, const int y, const Square s)
 {
+	if (_squares[x][y] != Blank)
+	{
+		std::cout << "Error: rewriting a square.\n";
+		std::cin.get();
+	}
+
 	_squares[x][y] = s;
 }
 
@@ -168,6 +187,26 @@ WinType Board::CheckWin() const // Checks to see who has won or if the game shou
 	}
 
 	return Draw;
+}
+
+// Finds all blank squares on the board and adds them to a vector
+
+std::vector<Position> Board::FindBlankSquares()
+{
+	blankSquares = std::vector<Position>();
+
+	for (int i = 0; i < BOARD_SIZE; i++)
+	{
+		for (int j = 0; j < BOARD_SIZE; j++)
+		{
+			if (_squares[i][j] == Square::Blank)
+			{
+				blankSquares.push_back({ i, j });
+			}
+		}
+	}
+
+	return blankSquares;
 }
 
 void Board::ResetBoard() // Resets the board to blank state

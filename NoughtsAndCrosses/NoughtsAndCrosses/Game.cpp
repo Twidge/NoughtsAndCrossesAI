@@ -32,6 +32,8 @@ WinType Game::RunGame()
 
 	while (true)
 	{
+		// std::cout << gameBoard;
+
 		noughts.MakeMove(gameBoard);
 
 		gameState = gameBoard.CheckWin();
@@ -41,6 +43,8 @@ WinType Game::RunGame()
 			gameBoard.ResetBoard();
 			return gameState;
 		}
+
+		// std::cout << gameBoard;
 
 		crosses.MakeMove(gameBoard);
 

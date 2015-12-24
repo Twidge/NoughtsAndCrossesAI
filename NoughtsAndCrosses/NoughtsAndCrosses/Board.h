@@ -3,6 +3,7 @@
 
 #include <random>
 #include <iostream>
+#include <vector>
 
 const int BOARD_SIZE = 3;
 
@@ -21,11 +22,20 @@ enum WinType
 	NoResult
 };
 
+struct Position
+{
+	int x;
+	int y;
+};
+
+Square OppositeSymbol(Square);
+
 class Board
 {
 private :
 
 	Square _squares[BOARD_SIZE][BOARD_SIZE];
+	std::vector<Position> blankSquares;
 
 public :
 
@@ -45,6 +55,7 @@ public :
 	// METHODS
 
 	WinType CheckWin() const;
+	std::vector<Position> FindBlankSquares();
 	void ResetBoard();
 	int WaysOfWinning(const Square) const;
 

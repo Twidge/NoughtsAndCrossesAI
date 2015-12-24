@@ -6,7 +6,7 @@
 #include "Game.h"
 #include <time.h>
 
-const int GAME_LOOPS = 1000000;
+const int GAME_LOOPS = 100000;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -22,6 +22,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	for (int i = 0; i < GAME_LOOPS; i++)
 	{
+		// std::cout << "--\n";
+
 		Game newGame = Game(b, p1, p2);
 
 		result = newGame.RunGame();
@@ -41,7 +43,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			wins[(int)Draw]++;
 		}
 
-		if (i % 10000 == 0)
+		if (i % (GAME_LOOPS / 100) == 0)
 			std::cout << "Game " << i + 1 << " done.\n";
 	}
 
