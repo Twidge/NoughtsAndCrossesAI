@@ -21,7 +21,7 @@ Board::Board()
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			_squares[i][j] = Blank;
+			squares[i][j] = Blank;
 		}
 	}
 }
@@ -32,7 +32,7 @@ Board::Board(const Board& b)
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			_squares[i][j] = b.GetSquare(i, j);
+			squares[i][j] = b.GetSquare(i, j);
 		}
 	}
 }
@@ -41,20 +41,20 @@ Board::Board(const Board& b)
 
 Square Board::GetSquare(const int x, const int y) const
 {
-	return _squares[x][y];
+	return squares[x][y];
 }
 
 // SETTERS
 
 void Board::SetSquare(const int x, const int y, const Square s)
 {
-	if (_squares[x][y] != Blank)
+	if (squares[x][y] != Blank)
 	{
 		std::cout << "Error: rewriting a square.\n";
 		std::cin.get();
 	}
 
-	_squares[x][y] = s;
+	squares[x][y] = s;
 }
 
 // METHODS
@@ -69,18 +69,18 @@ WinType Board::CheckWin() const // Checks to see who has won or if the game shou
 
 		for (int j = 1; j < BOARD_SIZE; j++)
 		{
-			if (_squares[i][j] != _squares[i][j - 1])
+			if (squares[i][j] != squares[i][j - 1])
 			{
 				isWin = false;
 			}
 		}
 
-		if (_squares[i][0] == Blank)
+		if (squares[i][0] == Blank)
 		{
 			isWin = false;
 		}
 
-		if (isWin && _squares[i][0] == Nought)
+		if (isWin && squares[i][0] == Nought)
 		{
 			return NoughtsWin;
 		}
@@ -97,18 +97,18 @@ WinType Board::CheckWin() const // Checks to see who has won or if the game shou
 
 		for (int j = 1; j < BOARD_SIZE; j++)
 		{
-			if (_squares[j][i] != _squares[j - 1][i])
+			if (squares[j][i] != squares[j - 1][i])
 			{
 				isWin = false;
 			}
 		}
 
-		if (_squares[0][i] == Blank)
+		if (squares[0][i] == Blank)
 		{
 			isWin = false;
 		}
 
-		if (isWin && _squares[0][i] == Nought)
+		if (isWin && squares[0][i] == Nought)
 		{
 			return NoughtsWin;
 		}
@@ -125,18 +125,18 @@ WinType Board::CheckWin() const // Checks to see who has won or if the game shou
 
 	for (int i = 1; i < BOARD_SIZE; i++)
 	{
-		if (_squares[i][i] != _squares[i - 1][i - 1])
+		if (squares[i][i] != squares[i - 1][i - 1])
 		{
 			isWin = false;
 		}
 	}
 
-	if (_squares[0][0] == Blank)
+	if (squares[0][0] == Blank)
 	{
 		isWin = false;
 	}
 
-	if (isWin && _squares[0][0] == Nought)
+	if (isWin && squares[0][0] == Nought)
 	{
 		return NoughtsWin;
 	}
@@ -150,18 +150,18 @@ WinType Board::CheckWin() const // Checks to see who has won or if the game shou
 
 	for (int i = 1; i < BOARD_SIZE; i++)
 	{
-		if (_squares[BOARD_SIZE - 1 - i][i] != _squares[BOARD_SIZE - i][i - 1])
+		if (squares[BOARD_SIZE - 1 - i][i] != squares[BOARD_SIZE - i][i - 1])
 		{
 			isWin = false;
 		}
 	}
 
-	if (_squares[BOARD_SIZE - 1][0] == Blank)
+	if (squares[BOARD_SIZE - 1][0] == Blank)
 	{
 		isWin = false;
 	}
 
-	if (isWin && _squares[BOARD_SIZE - 1][0] == Nought)
+	if (isWin && squares[BOARD_SIZE - 1][0] == Nought)
 	{
 		return NoughtsWin;
 	}
@@ -179,7 +179,7 @@ WinType Board::CheckWin() const // Checks to see who has won or if the game shou
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			if (_squares[i][j] == Blank)
+			if (squares[i][j] == Blank)
 			{
 				return NoResult;
 			}
@@ -199,7 +199,7 @@ std::vector<Position> Board::FindBlankSquares()
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			if (_squares[i][j] == Square::Blank)
+			if (squares[i][j] == Square::Blank)
 			{
 				blankSquares.push_back({ i, j });
 			}
@@ -215,7 +215,7 @@ void Board::ResetBoard() // Resets the board to blank state
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			_squares[i][j] = Blank;
+			squares[i][j] = Blank;
 		}
 	}
 }
@@ -236,11 +236,11 @@ int Board::WaysOfWinning(const Square s) const // Returns the number of ways in 
 
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			if (_squares[i][j] == Blank)
+			if (squares[i][j] == Blank)
 			{
 				Board test = Board(*this);
 
-				test._squares[i][j] = s;
+				test.squares[i][j] = s;
 
 				win = test.CheckWin();
 
@@ -268,7 +268,7 @@ void Board::operator= (const Board& b)
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			_squares[i][j] = b.GetSquare(i, j);
+			squares[i][j] = b.GetSquare(i, j);
 		}
 	}
 }
@@ -279,7 +279,7 @@ std::ostream& operator<< (std::ostream& os, const Board& b)
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			os << b._squares[i][j] << " ";
+			os << b.squares[i][j] << " ";
 		}
 
 		os << "\n";

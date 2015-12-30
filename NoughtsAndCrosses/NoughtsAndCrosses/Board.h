@@ -34,7 +34,7 @@ class Board
 {
 private :
 
-	Square _squares[BOARD_SIZE][BOARD_SIZE];
+	Square squares[BOARD_SIZE][BOARD_SIZE];
 	std::vector<Position> blankSquares;
 
 public :
